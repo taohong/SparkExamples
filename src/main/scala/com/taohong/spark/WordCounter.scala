@@ -13,9 +13,16 @@ object WordCounter {
     val input = sc.textFile("C:\\Users\\tho\\DEV\\spark-1.6.1-bin-hadoop2.6\\README.md");
     val words = input.flatMap { line => line.split(" ") };
     val counts = words.map(word => (word,1)).reduceByKey(_+_);
-    val suffix = System.currentTimeMillis()
+    val suffix = getFormattedDate()
     counts.saveAsTextFile(s"C:\\Users\\tho\\DEV\\output\\wordcount_result_$suffix");
     print("******************** Word count is done! ************************")
+  }
+  
+  def getFormattedDate():String = {
+    var now:Date = new Date()
+    var  dateFormat:SimpleDateFormat = new SimpleDateFormat("yyyyMMddHHmmss")
+    dateFormat.format( now )
+    
   }
   
 }
